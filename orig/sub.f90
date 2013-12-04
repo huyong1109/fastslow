@@ -17,7 +17,7 @@ dt = 20.0
 ! physical parameters
 g = 9.81
 f = -1.e-4
-r = 0.0
+r = 0.0 ! bottom drag coefficient
 rho = 1028.0
 
 ! parameter for semi-implicit treatment of Coriolis force
@@ -168,8 +168,8 @@ DO k = 1,nx
   vu = 0.25*(v(j,k)+v(j,k+1)+v(j-1,k)+v(j-1,k+1))
   speed = SQRT(uu*uu+vu*vu)
   IF(hu > 0.0)THEN
-    tx = dt*taux/(rho*hu)
-    Rx(j,k) = 1.0+dt*rr*speed/hu 
+    tx = dt*taux/(rho*hu) ! wind forcing
+    Rx(j,k) = 1.0+dt*rr*speed/hu ! bottom friction
   END IF
 
   ustar(j,k) = u(j,k)+ pgrdx + tx + advx(j,k)
